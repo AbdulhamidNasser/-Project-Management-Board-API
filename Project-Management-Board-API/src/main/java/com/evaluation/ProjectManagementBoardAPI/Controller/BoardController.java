@@ -41,7 +41,6 @@ public class BoardController {
     public String updateBoard(@PathVariable Long id, @RequestBody Board updatedBoard) {
         Board board = boardService.getBoardById(id);
         board.setName(updatedBoard.getName());
-        board.setDescription(updatedBoard.getDescription());
 
         boardService.saveBoard(board);
 
