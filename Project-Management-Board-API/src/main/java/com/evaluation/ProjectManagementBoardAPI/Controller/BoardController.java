@@ -54,6 +54,15 @@ public class BoardController {
         );
         return ResponseEntity.ok(response);
     }
+    @PutMapping("/{id}")
+    public String updateBoard(@PathVariable Long id, @RequestBody Board updatedBoard) {
+        Board board = boardService.getBoardById(id);
+        board.setName(updatedBoard.getName());
+
+        boardService.saveBoard(board);
+
+        return "Updated Successfully";
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteBoard(@PathVariable Long id) {
         boolean isDeleted = boardService.deleteBoardById(id);
@@ -67,6 +76,8 @@ public class BoardController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 
 
 }
