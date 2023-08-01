@@ -43,7 +43,7 @@ public class BoardController {
         board.setName(updatedBoard.getName());
         board.setDescription(updatedBoard.getDescription());
 
-
+        boardService.saveBoard(board);
 
         return "Updated Successfully";
     }
