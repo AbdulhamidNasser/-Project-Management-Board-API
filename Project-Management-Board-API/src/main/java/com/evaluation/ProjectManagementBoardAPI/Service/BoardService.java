@@ -32,4 +32,17 @@ public class BoardService {
     public Board saveBoard(Board board){
         return boardRepository.save(board);
     }
+
+
+    public boolean deleteBoardById(Long id) {
+        if (boardRepository.existsById(id)) {
+            boardRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 }

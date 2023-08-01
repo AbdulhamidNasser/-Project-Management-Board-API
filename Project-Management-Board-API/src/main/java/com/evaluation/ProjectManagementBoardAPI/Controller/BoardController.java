@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/boards")
@@ -37,13 +39,34 @@ public class BoardController {
         return boardService.getAllBoards();
     }
 
-    @PutMapping("/{id}")
-    public String updateBoard(@PathVariable Long id, @RequestBody Board updatedBoard) {
+    @GetMapping("/{id}")
+    public ResponseEntity<BoardResponse> getBoardById(@PathVariable Long id) {
         Board board = boardService.getBoardById(id);
-        board.setName(updatedBoard.getName());
+        if (board == null) {
+            // If the board with the given ID is not found, return a 404 response
+            return ResponseEntity.notFound().build();
+        }
 
-        boardService.saveBoard(board);
-
-        return "Updated Successfully";
+        BoardResponse response = new BoardResponse(
+                board.getId(),
+                board.getName(),
+                Board.getColumns()
+        );
+        return ResponseEntity.ok(response);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteBoard(@PathVariable Long id) {
+        boolean isDeleted = boardService.deleteBoardById(id);
+        if (isDeleted) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("successful", true);
+            response.put("message", "Board with ID " + id + " has been deleted successfully.");
+            return ResponseEntity.ok(response);
+        } else {
+            // If the board with the given ID is not found, return a 404 response
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
