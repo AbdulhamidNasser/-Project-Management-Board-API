@@ -33,7 +33,6 @@ public class BoardController {
         );
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
     @GetMapping
     public List<Board> getAllBoards() {
         return boardService.getAllBoards();

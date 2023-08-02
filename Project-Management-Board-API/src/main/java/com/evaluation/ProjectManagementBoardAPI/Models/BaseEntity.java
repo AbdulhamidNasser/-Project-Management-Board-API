@@ -18,5 +18,7 @@ public class BaseEntity {
     Long id;
     Date createdAt;
     Date updatedAt;
+
+
 }
 
