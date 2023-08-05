@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trello Board</title>
+  <style>
+    /* Add your CSS styles here */
+    .board {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 200px;
+      margin: 10px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+
+    .card {
+      margin: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      margin: 0;
+      padding: 5px;
+      color: #333;
+    }
+
+    .card p {
+      margin: 0;
+      padding: 5px;
+      color: #666;
+    }
+
+  </style>
+</head>
+<body>
+
+<h1>Trello Board</h1>
+
+<div>
+  <h2>Create a New Board</h2>
+  <input type="text" id="boardTitleInput" placeholder="Enter Board Title">
+  <button id="createBoardButton">Create Board</button>
+</div>
+
+<div>
+  <h2>Get All Boards</h2>
+  <button id="getAllBoardsButton">Get All Boards</button>
+</div>
+<div id="boardList"></div> <!-- This element will display the list of boards -->
+
+<div>
+  <h2>Update Board Title</h2>
+  <input type="number" id="boardIdToUpdate" placeholder="Board ID">
+  <button id="updateBoardButton">Update Board Title</button>
+</div>
+
+<div>
+  <h2>Delete a Board</h2>
+  <input type="number" id="boardIdToDelete" placeholder="Board ID">
+  <button id="deleteBoardButton">Delete Board</button>
+</div>
+
+<div>
+  <h2>Create a New Card</h2>
+  <input type="number" id="boardIdForCard" placeholder="Board ID">
+  <input type="text" id="cardTitle" placeholder="Card Title">
+  <input type="text" id="cardDescription" placeholder="Card Description">
+  <select id="cardStatusInput">
+    <option value="1">To Do</option>
+    <option value="2">In Progress</option>
+    <option value="3">Done</option>
+  </select>
+  <button id="createCardButton">Create Card</button>
+</div>
+
+<div>
+  <h2>Get All Cards</h2>
+  <input type="number" id="boardIdForCardList" placeholder="Board ID">
+  <button id="getAllCardsButton">Get All Cards</button>
+  <div id="cardList"></div>
+</div>
+
+<div>
+  <h2>Update a Card</h2>
+  <input type="number" id="boardIdForCardUpdate" placeholder="Board ID">
+  <input type="number" id="cardIdToUpdate" placeholder="Card ID">
+  <input type="text" id="updatedCardTitle" placeholder="Updated Card Title">
+  <input type="text" id="updatedCardDescription" placeholder="Updated Card Description">
+  <select id="updatedCardStatusInput">
+    <option value="1">To Do</option>
+    <option value="2">In Progress</option>
+    <option value="3">Done</option>
+  </select>
+  <button id="updateCardButton">Update Card</button>
+</div>
+
+<div>
+  <h2>Delete a Card</h2>
+  <input type="number" id="boardIdForCardDelete" placeholder="Board ID">
+  <input type="number" id="cardIdToDelete" placeholder="Card ID">
+  <button id="deleteCardButton">Delete Card</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
