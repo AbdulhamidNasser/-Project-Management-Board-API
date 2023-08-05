@@ -17,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/boards")
+@CrossOrigin("*")
 public class CardController {
     private final CardService cardService;
     private final BoardService boardService;
