@@ -38,6 +38,99 @@
       color: #666;
     }
 
+
+    //test
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .board {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    .column {
+      background-color: #f9f9f9;
+      width: 300px;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .task {
+      background-color: #fff;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: grab;
+    }
+
+    .task h3 {
+      margin: 0;
+      padding: 5px;
+    }
+
+    .task p {
+      margin: 0;
+      padding: 5px;
+    }
+
+    h2 {
+      margin: 0;
+      padding: 10px 0;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .column:not(:first-child) {
+      margin-left: 10px;
+    }
+
+    .column h2 {
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      padding: 5px;
+      font-weight: normal;
+    }
+    /* Add your CSS styles here */
+    .board {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 200px;
+      margin: 10px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+
+    .card {
+      margin: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      margin: 0;
+      padding: 5px;
+      color: #333;
+    }
+
+    .card p {
+      margin: 0;
+      padding: 5px;
+      color: #666;
+    }
+
   </style>
 </head>
 <body>
@@ -56,45 +149,53 @@
 </div>
 <div id="boardList"></div> <!-- This element will display the list of boards -->
 
-<div>
-  <h2>Update Board Title</h2>
-  <input type="number" id="boardIdToUpdate" placeholder="Board ID">
-  <button id="updateBoardButton">Update Board Title</button>
+
+
+
+
+<div class="board">
+  <div class="column" id="todo">
+    <h2>To Do</h2>
+    <!-- Placeholder for To Do cards -->
+  </div>
+  <div class="column" id="inprogress">
+    <h2>In Progress</h2>
+    <!-- Placeholder for In Progress cards -->
+  </div>
+  <div class="column" id="done">
+    <h2>Done</h2>
+    <!-- Placeholder for Done cards -->
+  </div>
 </div>
 
-<div>
-  <h2>Delete a Board</h2>
-  <input type="number" id="boardIdToDelete" placeholder="Board ID">
-  <button id="deleteBoardButton">Delete Board</button>
-</div>
 
+<h2>Create Card</h2>
 <div>
-  <h2>Create a New Card</h2>
-  <input type="number" id="boardIdForCard" placeholder="Board ID">
-  <input type="text" id="cardTitle" placeholder="Card Title">
+  <input type="number" id="boardIdInput" placeholder="Board ID">
+  <input type="text" id="cardName" placeholder="Card Name">
   <input type="text" id="cardDescription" placeholder="Card Description">
-  <select id="cardStatusInput">
+  <select id="cardStatusInput" name="status">
     <option value="1">To Do</option>
     <option value="2">In Progress</option>
     <option value="3">Done</option>
   </select>
-  <button id="createCardButton">Create Card</button>
+  <button id="addCardButton">Add Card</button>
 </div>
 
-<div>
-  <h2>Get All Cards</h2>
-  <input type="number" id="boardIdForCardList" placeholder="Board ID">
-  <button id="getAllCardsButton">Get All Cards</button>
-  <div id="cardList"></div>
-</div>
 
+
+
+
+
+
+<!-- Update Card section -->
 <div>
-  <h2>Update a Card</h2>
-  <input type="number" id="boardIdForCardUpdate" placeholder="Board ID">
-  <input type="number" id="cardIdToUpdate" placeholder="Card ID">
-  <input type="text" id="updatedCardTitle" placeholder="Updated Card Title">
+  <h2>Update Card</h2>
+  <input type="number" id="updateBoardIdInput" placeholder="Board ID">
+  <input type="number" id="updateCardIdInput" placeholder="Card ID">
+  <input type="text" id="updatedCardName" placeholder="Updated Card Name">
   <input type="text" id="updatedCardDescription" placeholder="Updated Card Description">
-  <select id="updatedCardStatusInput">
+  <select id="updateCardStatusInput" name="status">
     <option value="1">To Do</option>
     <option value="2">In Progress</option>
     <option value="3">Done</option>
@@ -102,12 +203,16 @@
   <button id="updateCardButton">Update Card</button>
 </div>
 
+
+
+<!-- Delete Card section -->
 <div>
   <h2>Delete a Card</h2>
   <input type="number" id="boardIdForCardDelete" placeholder="Board ID">
   <input type="number" id="cardIdToDelete" placeholder="Card ID">
   <button id="deleteCardButton">Delete Card</button>
 </div>
+
 
 <script src="script.js"></script>
 </body>
