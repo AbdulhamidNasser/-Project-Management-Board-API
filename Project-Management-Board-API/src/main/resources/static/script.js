@@ -95,6 +95,7 @@ async function updateCard(boardId, cardId, updatedCardTitle, updatedCardDescript
     });
 
     const data = await response.json();
+    displayCardsBySection();
     return data;
   } catch (error) {
     console.error('Error updating card:', error);
@@ -110,6 +111,7 @@ async function deleteCard(boardId, cardId) {
     });
 
     const data = await response.json();
+    displayCardsBySection();
     return data;
   } catch (error) {
     console.error('Error deleting card:', error);
@@ -155,6 +157,7 @@ document.getElementById('addCardButton').addEventListener('click', async () => {
   if (newCard) {
     // Handle successful card creation (e.g., display the new card)
     console.log('New card created:', newCard);
+    displayCardsBySection();
   } else {
     // Handle error (e.g., show an error message)
     console.log('Failed to create a new card.');
@@ -181,6 +184,48 @@ document.getElementById('updateCardButton').addEventListener('click', async () =
   }
 });
 
+async function displayCardsBySection() {
+  const boardId = 1; // Assuming the card should be added to the board with ID 1
+  try {
+    // Fetch the list of cards for the board
+    const response = await fetch(`http://localhost:8080/api/boards/${boardId}/cards`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch cards. Status: ${response.status} ${response.statusText}`);
+    }
+    // Parse the response body as JSON
+    const cards = await response.json();
+    // Get the containers for each section
+    const todoContainer = document.getElementById('todo');
+    todoContainer.innerHTML = '<h2>To Do</h2>'; // Reset the container with the section title
+    const inProgressContainer = document.getElementById('inprogress');
+    inProgressContainer.innerHTML = '<h2>In Progress</h2>'; // Reset the container with the section title
+    const doneContainer = document.getElementById('done');
+    doneContainer.innerHTML = '<h2>Done</h2>'; // Reset the container with the section title
+    // Loop through the cards and create HTML elements to display them
+    cards.forEach((card, index) => {
+      const cardElement = document.createElement('div');
+      cardElement.classList.add('card'); // Add the 'card' class for styling
+      cardElement.innerHTML = `
+        <h3>Card ID: ${index + 1}</h3>
+        <p>Title: ${card.title}</p>
+        <p>Description: ${card.description}</p>
+      `;
+      // Add the card to the corresponding container based on the section
+      if (card.section === 1) {
+        todoContainer.appendChild(cardElement);
+      } else if (card.section === 2) {
+        inProgressContainer.appendChild(cardElement);
+      } else if (card.section === 3) {
+        doneContainer.appendChild(cardElement);
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching cards:', error);
+    alert('An error occurred while fetching cards.');
+  }
+}
+// Initial call to fetch and display cards when the page loads
+displayCardsBySection();
 
 // Delete a card when the "Delete Card" button is clicked
 document.getElementById('deleteCardButton').addEventListener('click', async () => {
@@ -196,4 +241,7 @@ document.getElementById('deleteCardButton').addEventListener('click', async () =
     console.log('Failed to delete the card.');
   }
 });
+
+
+
 
