@@ -1,6 +1,6 @@
 const apiUrl = 'http://localhost:8080/api';
 
-
+var chosenBoardId=1
 // Function to create a new board
 async function createBoard(boardTitle) {
   try {
@@ -29,11 +29,20 @@ function displayBoards(boards) {
   boardListContainer.innerHTML = ''; // Clear the container before rendering
 
   boards.forEach(board => {
+ 
     const boardElement = document.createElement('div');
     boardElement.innerHTML = `<h3>${board.name}</h3>`;
     boardListContainer.appendChild(boardElement);
+    boardElement.addEventListener("click", changeBoardId);
+    function changeBoardId(){  chosenBoardId=board.id;
+      displayCardsBySection()
+    }
+
   });
 }
+
+
+
 
 // Function to get all boards
 async function getAllBoards() {
@@ -59,7 +68,7 @@ async function getAllBoards() {
 // Function to create a new card in a board
 async function createCard(boardId, cardTitle, cardDescription, cardStatus) {
   try {
-    const response = await fetch(`${apiUrl}/boards/${boardId}/cards`, {
+    const response = await fetch(`${apiUrl}/boards/${chosenBoardId}/cards`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +91,7 @@ async function createCard(boardId, cardTitle, cardDescription, cardStatus) {
 // Function to update a card in a board
 async function updateCard(boardId, cardId, updatedCardTitle, updatedCardDescription, updatedCardStatus) {
   try {
-    const response = await fetch(`${apiUrl}/boards/${boardId}/cards/${cardId}`, {
+    const response = await fetch(`${apiUrl}/boards/${chosenBoardId}/cards/${cardId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -106,7 +115,7 @@ async function updateCard(boardId, cardId, updatedCardTitle, updatedCardDescript
 // Function to delete a card from a board
 async function deleteCard(boardId, cardId) {
   try {
-    const response = await fetch(`${apiUrl}/boards/${boardId}/cards/${cardId}`, {
+    const response = await fetch(`${apiUrl}/boards/${chosenBoardId}/cards/${document.getElementById('selectId').value}`, {
       method: 'DELETE',
     });
 
@@ -185,10 +194,10 @@ document.getElementById('updateCardButton').addEventListener('click', async () =
 });
 
 async function displayCardsBySection() {
-  const boardId = 1; // Assuming the card should be added to the board with ID 1
+  const boardId = chosenBoardId; // Assuming the card should be added to the board with ID 1
   try {
     // Fetch the list of cards for the board
-    const response = await fetch(`http://localhost:8080/api/boards/${boardId}/cards`);
+    const response = await fetch(`http://localhost:8080/api/boards/${chosenBoardId}/cards`);
     if (!response.ok) {
       throw new Error(`Failed to fetch cards. Status: ${response.status} ${response.statusText}`);
     }
@@ -202,7 +211,14 @@ async function displayCardsBySection() {
     const doneContainer = document.getElementById('done');
     doneContainer.innerHTML = '<h2>Done</h2>'; // Reset the container with the section title
     // Loop through the cards and create HTML elements to display them
+    const deleteIdList=document.getElementById('selectId')
+    deleteIdList.innerHTML="";
     cards.forEach((card, index) => {
+
+const deleteOption=document.createElement('option');
+deleteOption.value=card.cardId;
+deleteOption.innerText="Card Id :"+card.cardId
+deleteIdList.appendChild(deleteOption)
       const cardElement = document.createElement('div');
       cardElement.classList.add('card'); // Add the 'card' class for styling
       cardElement.innerHTML = `
@@ -230,9 +246,9 @@ displayCardsBySection();
 // Delete a card when the "Delete Card" button is clicked
 document.getElementById('deleteCardButton').addEventListener('click', async () => {
   const boardId = parseInt(document.getElementById('boardIdForCardDelete').value);
-  const cardId = parseInt(document.getElementById('cardIdToDelete').value);
 
-  const deletionResult = await deleteCard(boardId, cardId);
+
+  const deletionResult = await deleteCard(boardId);
   if (deletionResult && deletionResult.successful) {
     // Handle successful card deletion (e.g., remove the card from the display)
     console.log('Card deleted:', deletionResult);
