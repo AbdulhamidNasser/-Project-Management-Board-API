@@ -206,7 +206,7 @@ async function displayCardsBySection() {
       const cardElement = document.createElement('div');
       cardElement.classList.add('card'); // Add the 'card' class for styling
       cardElement.innerHTML = `
-        <h3>Card ID: ${index + 1}</h3>
+        <p>Card ID: ${card.cardId}</p>
         <p>Title: ${card.title}</p>
         <p>Description: ${card.description}</p>
       `;
@@ -241,7 +241,3 @@ document.getElementById('deleteCardButton').addEventListener('click', async () =
     console.log('Failed to delete the card.');
   }
 });
-
-
-
-
