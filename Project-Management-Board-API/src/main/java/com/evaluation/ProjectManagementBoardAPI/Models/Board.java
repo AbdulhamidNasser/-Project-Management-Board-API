@@ -3,11 +3,9 @@ package com.evaluation.ProjectManagementBoardAPI.Models;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -16,6 +14,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "boards")
 public class Board {
     private static final Map<Integer, String> columns = new HashMap<>();
     static {
@@ -36,4 +35,7 @@ public class Board {
     public static Map<Integer, String> getColumns() {
         return columns;
     }
+
+    @OneToMany
+    List<Card>  cards;
 }

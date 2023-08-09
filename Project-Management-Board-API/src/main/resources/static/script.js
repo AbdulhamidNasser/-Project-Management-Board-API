@@ -66,7 +66,7 @@ async function getAllBoards() {
 
 
 // Function to create a new card in a board
-async function createCard(boardId, cardTitle, cardDescription, cardStatus) {
+async function createCard( cardTitle, cardDescription, cardStatus) {
   try {
     const response = await fetch(`${apiUrl}/boards/${chosenBoardId}/cards`, {
       method: 'POST',
@@ -89,7 +89,7 @@ async function createCard(boardId, cardTitle, cardDescription, cardStatus) {
 }
 
 // Function to update a card in a board
-async function updateCard(boardId, cardId, updatedCardTitle, updatedCardDescription, updatedCardStatus) {
+async function updateCard( cardId, updatedCardTitle, updatedCardDescription, updatedCardStatus) {
   try {
     const response = await fetch(`${apiUrl}/boards/${chosenBoardId}/cards/${cardId}`, {
       method: 'PUT',
@@ -113,7 +113,7 @@ async function updateCard(boardId, cardId, updatedCardTitle, updatedCardDescript
 }
 
 // Function to delete a card from a board
-async function deleteCard(boardId, cardId) {
+async function deleteCard( cardId) {
   try {
     const response = await fetch(`${apiUrl}/boards/${chosenBoardId}/cards/${document.getElementById('selectId').value}`, {
       method: 'DELETE',
@@ -158,11 +158,10 @@ document.getElementById('getAllBoardsButton').addEventListener('click', async ()
 
 // Create a new card when the "Add Card" button is clicked
 document.getElementById('addCardButton').addEventListener('click', async () => {
-  const boardId = parseInt(document.getElementById('boardIdInput').value); // Parse the value as an integer
   const cardTitle = document.getElementById('cardName').value;
   const cardDescription = document.getElementById('cardDescription').value;
   const cardStatus = parseInt(document.getElementById('cardStatusInput').value); // Parse the value as an integer
-  const newCard = await createCard(boardId, cardTitle, cardDescription, cardStatus);
+  const newCard = await createCard( cardTitle, cardDescription, cardStatus);
   if (newCard) {
     // Handle successful card creation (e.g., display the new card)
     console.log('New card created:', newCard);
@@ -177,13 +176,12 @@ document.getElementById('addCardButton').addEventListener('click', async () => {
 
 // Update a card when the "Update Card" button is clicked
 document.getElementById('updateCardButton').addEventListener('click', async () => {
-  const boardId = parseInt(document.getElementById('updateBoardIdInput').value);
   const cardId = parseInt(document.getElementById('updateCardIdInput').value);
   const updatedCardTitle = document.getElementById('updatedCardName').value;
   const updatedCardDescription = document.getElementById('updatedCardDescription').value;
   const updatedCardStatus = parseInt(document.getElementById('updateCardStatusInput').value);
 
-  const updatedCard = await updateCard(boardId, cardId, updatedCardTitle, updatedCardDescription, updatedCardStatus);
+  const updatedCard = await updateCard( cardId, updatedCardTitle, updatedCardDescription, updatedCardStatus);
   if (updatedCard) {
     // Handle successful card update (e.g., display the updated card)
     console.log('Card updated:', updatedCard);
@@ -245,10 +243,9 @@ displayCardsBySection();
 
 // Delete a card when the "Delete Card" button is clicked
 document.getElementById('deleteCardButton').addEventListener('click', async () => {
-  const boardId = parseInt(document.getElementById('boardIdForCardDelete').value);
 
 
-  const deletionResult = await deleteCard(boardId);
+  const deletionResult = await deleteCard();
   if (deletionResult && deletionResult.successful) {
     // Handle successful card deletion (e.g., remove the card from the display)
     console.log('Card deleted:', deletionResult);

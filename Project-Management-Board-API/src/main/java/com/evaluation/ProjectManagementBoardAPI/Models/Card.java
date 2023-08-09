@@ -2,7 +2,7 @@ package com.evaluation.ProjectManagementBoardAPI.Models;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "cards")
 public class Card{
 
     @Id
@@ -21,6 +22,5 @@ public class Card{
     private int section;
 
     @ManyToOne//(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
     private Board board;
 }
