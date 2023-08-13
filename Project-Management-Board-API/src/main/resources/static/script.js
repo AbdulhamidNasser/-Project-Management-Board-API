@@ -1,5 +1,5 @@
 let hostname = window.location.hostname;
-const apiUrl = 'http://'+hostname+':7070/api';
+const apiUrl = 'http://'+hostname+':8080/api';
 
 var chosenBoardId=1
 // Function to create a new board
