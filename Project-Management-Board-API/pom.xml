@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.evaluation</groupId>
 	<artifactId>Project-Management-Board-API</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>Project-Management-Board-API</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
