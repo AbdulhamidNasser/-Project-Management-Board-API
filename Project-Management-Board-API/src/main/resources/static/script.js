@@ -1,5 +1,5 @@
 let hostname = window.location.hostname;
-const apiUrl = 'http://'+hostname+':8080/api';
+const apiUrl = 'http://'+hostname+':8082/api';
 
 var chosenBoardId=1
 // Function to create a new board
@@ -196,7 +196,7 @@ async function displayCardsBySection() {
   const boardId = chosenBoardId; // Assuming the card should be added to the board with ID 1
   try {
     // Fetch the list of cards for the board
-    const response = await fetch(`http://'+hostname+':8080/api/boards/${chosenBoardId}/cards`);
+    const response = await fetch(`http://'+hostname+':8082/api/boards/${chosenBoardId}/cards`);
     if (!response.ok) {
       throw new Error(`Failed to fetch cards. Status: ${response.status} ${response.statusText}`);
     }
