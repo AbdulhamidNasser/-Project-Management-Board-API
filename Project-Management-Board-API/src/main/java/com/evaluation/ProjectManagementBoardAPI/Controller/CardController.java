@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api/boards")
+@RequestMapping(value = "/api/boards/{boardId}/cards")
 @CrossOrigin("*")
 public class CardController {
     private final CardService cardService;
@@ -28,7 +28,7 @@ public class CardController {
         this.boardService = boardService;
     }
 
-    @PostMapping(value = "/{boardId}/cards")
+    @PostMapping
     public ResponseEntity<CardResponse> createCard(
             @PathVariable Long boardId,
             @RequestBody CardRequest cardRequest
@@ -55,7 +55,7 @@ public class CardController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/{boardId}/cards")
+    @GetMapping
     public List<CardResponse> getAllCards(@PathVariable Long boardId) {
         Board board = boardService.getBoardById(boardId);
         if (board == null) {
@@ -67,7 +67,7 @@ public class CardController {
         return CardResponse.fromCardList(cards);
     }
 
-    @GetMapping("/{boardId}/cards/{cardId}")
+    @GetMapping("/{cardId}")
     public ResponseEntity<CardResponse> getCardById(
             @PathVariable Long boardId,
             @PathVariable Long cardId
@@ -92,7 +92,7 @@ public class CardController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{boardId}/cards/{cardId}")
+    @PutMapping("/{cardId}")
     public ResponseEntity<CardResponse> updateCard(
             @PathVariable Long boardId,
             @PathVariable Long cardId,
@@ -124,7 +124,7 @@ public class CardController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{boardId}/cards/{cardId}")
+    @DeleteMapping("/{cardId}")
     public ResponseEntity<Map<String, Object>> deleteCard(
             @PathVariable Long boardId,
             @PathVariable Long cardId

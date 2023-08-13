@@ -13,7 +13,7 @@ services:
     build: .
     image: tttapi
     ports:
-      - "8082:8080"
+      - "8080:8080"
     volumes:
       - ./cont_logs:/app/logs
     environment:
@@ -27,7 +27,7 @@ services:
   ui:
     image: nginx
     ports:
-      - "82:80"
+      - "80:80"
     volumes:
       - ./src/main/resources/static:/usr/share/nginx/html
     depends_on:
