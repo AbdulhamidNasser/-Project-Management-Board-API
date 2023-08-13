@@ -24,7 +24,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./src/main/resoucer/static:/usr/share/nginx/html
+      - ./src/main/resources/static:/usr/share/nginx/html
     restart: on-failure
     depends_on:
       - gapi
