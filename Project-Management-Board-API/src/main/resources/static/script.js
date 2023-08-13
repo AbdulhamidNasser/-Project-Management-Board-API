@@ -1,4 +1,5 @@
-const apiUrl = 'http://localhost:8080/api';
+let hostname = window.location.hostname;
+const apiUrl = 'http://'+hostname+':8080/api';
 
 var chosenBoardId=1
 // Function to create a new board
